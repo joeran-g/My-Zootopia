@@ -13,6 +13,24 @@ def save_data(data_string):
         animal_page.write(data_string)
 
 
+def serialize_animal(animal_data):
+    """
+    From a dictionary get animal data and return as html string
+    """
+    html_string = ''
+    html_string += "\n<li class='cards__item'>\n"
+    html_string += f"\t<div class='card__title'>{animal_data['name']}</div>\n"
+    html_string += "\t<p class='card__text'>\n"
+    if 'diet' in animal_data['characteristics']:
+        html_string += f"\t\t<strong>Diet:</strong>  {animal_data['characteristics']['diet']}<br/>\n"
+    if animal_data['locations']:
+        html_string += f"\t\t<strong>Location:</strong> {animal_data['locations'][0]}<br/>\n"
+    if 'type' in animal_data['characteristics']:
+        html_string += f"\t\t<strong>Type:</strong> {animal_data['characteristics']['type']}<br/>\n"
+    html_string += "\t</p>\n</li>\n"
+    return html_string
+
+
 def data_to_string(data):
     """
     Define an empty string and add name, diet, location
@@ -20,16 +38,7 @@ def data_to_string(data):
     """
     string_data = ''
     for animal in animals_data:
-        string_data += "<li class='cards__item'>\n"
-        string_data += f"<div class='card__title'>{animal['name']}</div>\n"
-        string_data += "<p class='card__text'>"
-        if 'diet' in animal['characteristics']:
-            string_data += f"<strong>Diet:</strong>  {animal['characteristics']['diet']}<br/>\n"
-        if animal['locations']:
-            string_data += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
-        if 'type' in animal['characteristics']:
-            string_data += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
-        string_data += "</p>\n</li>\n"
+        string_data += serialize_animal(animal)
     return string_data
 
 
@@ -43,7 +52,7 @@ def change_html_data(new_data):
 """ Load data """
 animals_data = load_data('animals_data.json')
 new_data = data_to_string(animals_data)
-""" Save data (commented out)"""
+""" Save data (one time replace)"""
 #change_html_data(new_data)
 
 
