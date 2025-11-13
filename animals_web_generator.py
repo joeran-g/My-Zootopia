@@ -21,15 +21,15 @@ def data_to_string(data):
     string_data = ''
     for animal in animals_data:
         string_data += "<li class='cards__item'>\n"
-        if animal['name']:
-            string_data += f"Name: {animal['name']}<br/>\n"
+        string_data += f"<div class='card__title'>{animal['name']}</div>\n"
+        string_data += "<p class='card__text'>"
         if 'diet' in animal['characteristics']:
-            string_data += f"Diet: {animal['characteristics']['diet']}<br/>\n"
+            string_data += f"<strong>Diet:</strong>  {animal['characteristics']['diet']}<br/>\n"
         if animal['locations']:
-            string_data += f"Location: {animal['locations'][0]}<br/>\n"
+            string_data += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
         if 'type' in animal['characteristics']:
-            string_data += f"Type: {animal['characteristics']['type']}<br/>\n"
-        string_data += "</li>\n"
+            string_data += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+        string_data += "</p>\n</li>\n"
     return string_data
 
 
@@ -44,6 +44,6 @@ def change_html_data(new_data):
 animals_data = load_data('animals_data.json')
 new_data = data_to_string(animals_data)
 """ Save data (commented out)"""
-change_html_data(new_data)
+#change_html_data(new_data)
 
 
