@@ -53,6 +53,6 @@ def change_html_data(new_data):
 animals_data = load_data('animals_data.json')
 new_data = data_to_string(animals_data)
 """ Save data (one time replace)"""
-#change_html_data(new_data)
+change_html_data(new_data)
 
 
