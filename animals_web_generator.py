@@ -52,7 +52,6 @@ def main():
     """ Ask the user for an Animal, get data from the API and change the Placeholder in the html with data from those"""
     user_choice = input("Enter a name of an animal: ").strip().title()
     animals = data_fetcher.fetch_data(user_choice)
-    print(animals)
     # Generate message, if the animal doesn't exist.
     if not animals:
         new_data = f"\n<h2>The animal '{user_choice}' doesn't exist.</h2>\n"
