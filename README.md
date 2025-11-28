@@ -12,5 +12,5 @@ To install this project, simply clone the repository and install the dependencie
 
 ## Usage
 
-To use this project, run the following commands - ` cd My-Zootopia  (if you are not already in the Directory)
+To use this project, run the following commands - ` cd My-Zootopia  (if you are not already in the Directory)     
                                                     python3 animals_web_generator.py
