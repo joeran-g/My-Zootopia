@@ -1,15 +1,10 @@
-import json
-
-
-def load_data(file_path):
-    """ Loads a JSON file """
-    with open(file_path, "r") as data:
-        return json.load(data)
+import data_fetcher
+import requests
 
 
 def save_data(data_string):
-    """Save a HTML file"""
-    with open('animals_template.html', 'w') as animal_page:
+    """ Save html_string as HTML file """
+    with open('Web-Template/animals.html', 'w') as animal_page:
         animal_page.write(data_string)
 
 
@@ -31,28 +26,43 @@ def serialize_animal(animal_data):
     return html_string
 
 
-def data_to_string(data):
+def data_to_string(animal_data):
     """
     Define an empty string and add name, diet, location
-    and type for each animal. if there is data.
+    and type for each animal from a dictionary. if there is data.
     """
     string_data = ''
-    for animal in animals_data:
+    for animal in animal_data:
         string_data += serialize_animal(animal)
     return string_data
 
 
 def change_html_data(new_data):
-    with open('animals_template.html', 'r') as animals:
-        old_file = animals.read()
-        new_file = old_file.replace('__REPLACE_ANIMALS_INFO__', new_data)
+    """ 
+    Open the template and replace the placeholder 
+    with the animal infos as html string.
+    """
+    with open("Web-Template/animals_template.html", "r") as data:
+        old_file = data.read()
+        new_file = old_file.replace("__REPLACE_ANIMALS_INFO__", new_data)
     save_data(new_file)
 
 
-""" Load data """
-animals_data = load_data('animals_data.json')
-new_data = data_to_string(animals_data)
-""" Save data (one time replace)"""
-change_html_data(new_data)
+def main():
+    """ Ask the user for an Animal, get data from the API and change the Placeholder in the html with data from those"""
+    user_choice = input("Enter a name of an animal: ").strip().title()
+    animals = data_fetcher.fetch_data(user_choice)
+    # Generate message, if the animal doesn't exist.
+    if not animals:
+        new_data = f"\n<h2>The animal '{user_choice}' doesn't exist.</h2>\n"
+    else:
+        new_data = data_to_string(animals)
+    # Save data 
+    change_html_data(new_data)
+
+
+if __name__ == "__main__":
+    main()
+
 
 
